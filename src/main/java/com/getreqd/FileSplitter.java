@@ -27,6 +27,9 @@ public class FileSplitter {
 		System.out.println("Splitting the file...");
 		
 		try {
+			
+			// Calculate the percentage based partition size
+			int partitionSize = (int) Math.floor((size*inputFile.length())/100);
 
 			// Read in the input file
 			InputStream inputStream = new BufferedInputStream(new FileInputStream(inputFile));
@@ -50,7 +53,7 @@ public class FileSplitter {
 				OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(outputFile));
 				
 				// Write "split" files of the specified size until there is no data left to write.
-				while (inputFileData != -1 && splitSize < size) {
+				while (inputFileData != -1 && splitSize < partitionSize) {
 					outputStream.write(inputFileData);
 					splitSize++;
 					inputFileData = inputStream.read();

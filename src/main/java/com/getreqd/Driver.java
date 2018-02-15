@@ -67,11 +67,11 @@ public class Driver extends JFrame {
 		JButton buttonExit = new JButton("Exit");
 		
 		// Create slider to make variable splitting sizes
-		JSlider partitionSize = new JSlider(0, 30000);		//can change the range here
+		JSlider partitionSize = new JSlider(0, 10);
 		//remove the border if it's not worth it and the space is better used for ticks
-		partitionSize.setBorder(BorderFactory.createTitledBorder("Partition size"));
+		partitionSize.setBorder(BorderFactory.createTitledBorder("Partition size (1% to 10%)"));
 		
-		partitionSize.setMajorTickSpacing(10000);			//and the spacing here
+		partitionSize.setMajorTickSpacing(1);
 		partitionSize.setPaintTicks(true);
 		partitionSize.setPaintLabels(true);
 
@@ -196,11 +196,9 @@ public class Driver extends JFrame {
 					
 					//get the size of the desired partion size from the slider
 					int size = partitionSize.getValue();
-					String stringSize = Integer.toString(size);
 				
 					// Call split class
-					Split sp = new Split();
-					sp.splitISO(inputFile, outputPath, String.valueOf(80000000)); // Pass inputFile as File and outputPath as String
+					Split.splitISO(inputFile, outputPath, Integer.toString(size)); // Pass inputFile as File and outputPath as String
 
 					// Clear UI text fields on complete
 					clearTextFields(inputFileField, outputDirectoryField);
