@@ -1,4 +1,4 @@
-# Get-Reqd Github Workflow  
+# Get-Reqd GitHub Workflow  
 I highly recommend that you follow this workflow very closely until you feel completely comfortable working without it. This way you don't accidentally skip a step and mess something up in the process.  
 
 ## 1. Set Up your Development Environment  
@@ -20,7 +20,7 @@ You will only need to complete this step once.
 **1.7.2.** In the import wizard, open the Git folder & select "Projects from Git".  
 **1.7.3.** Select "Existing local repository".  
 **1.7.4.** Click "Add..." and browse for the location where you cloned the project to your machine.  
-**1.7.5.** After you select the project location, a repository with a checkbox will apear in the results. Click the checkbox and hit "Finish".  
+**1.7.5.** After you select the project location, a repository with a checkbox will appear in the results. Click the checkbox and hit "Finish".  
 **1.7.6.** Continue through the wizard with default settings.  
 **1.7.7.** You will now see the project in your Ecplise workspace.  
 **1.7.8.** Right click the project, then select "Maven" > "Update Project" > "OK".  
@@ -50,7 +50,7 @@ This step is also very important because you **NEVER** want to develop on the ma
 It is good practice to commit when you come to a good stopping point. Think of committing as another way to save your progress. This way if you ever need to revert to an earlier version of your code you can easily find what point to revert back to.  
 
 **4.1.** Make changes to your code until you reach a reasonable stopping point.  
-**4.2.** See what files you have changed and updated. If you dont see your file has been modified, make sure you saved your changes in Eclipse then try again.  
+**4.2.** See what files you have changed and updated. If you don't see your file has been modified, make sure you saved your changes in Eclipse then try again.  
 > git status  
 
 **4.3.** Add your updated files to the stage. This command will add *all of your changes* to the stage.  
@@ -87,7 +87,7 @@ Pull requests are how you will submit your changes from your forked repository t
 > git push --set-upstream origin **your-meaningful-branch-name**  
 
 ## 6. Submit your Pull Request  
-This is where you will send your code to the team repository for merging, ultimatly "turning in" your code to the team.  
+This is where you will send your code to the team repository for merging, ultimately "turning in" your code to the team.  
 
 **6.1.** Go to your personal forked repository on GitHub. (See **step 1.2** to find your repository)  
 **6.2.** You will notice a yellow box at the top of your repository with a green button that says "Compare & pull request". Click this button.  
