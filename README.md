@@ -4,13 +4,13 @@ I highly recommend that you follow this workflow very closely until you feel com
 ## 1. Set Up your Development Environment  
 You will only need to complete this step once.  
 
-**1.1.** Fork repo to your personal account by clicking the "Fork" button at the top right of the team repo. "Team repo" refers to our organization repository "CACI-Utility". By forking the team repo, a copy of our team's repository will appear on your personal GitHub account.
+**1.1.** Fork repo to your personal account by clicking the "Fork" button at the top right of the team repo. "Team repo" refers to our organization repository "CACI-Utility". By forking the team repo, a copy of our team's repository will appear on your personal GitHub account.  
 **1.2.** Go to your personal GitHub page by going to "Your Profile" > "Repositories" > "CACI-Utility".  
 **1.3.** Look for a green button that says "Clone or Download". Click the button, make sure you see "Clone with HTTPS", and copy the link.  
 **1.4.** CD to your desired directory on your personal machine where you would like to store the project.  
-> cd ~/your/desired/directory
+> cd ~/your/desired/directory.  
 
-**1.5.** Clone your personal fork to local machine.
+**1.5.** Clone your personal fork to local machine.  
 > git clone COPIED_LINK  
 
 **1.6.** Connect your fork to the team repo so you are able to update your personal repository in the future with changes made by the team.  
@@ -18,12 +18,12 @@ You will only need to complete this step once.
 
 **1.7.1.** Enter Eclipse and go to "File" "Import...".  
 **1.7.2.** In the import wizard, open the Git folder & select "Projects from Git".  
-**1.7.3.** Select "Existing local repository".
-**1.7.4.** Click "Add..." and browse for the location where you cloned the project to your machine.
-**1.7.5.** After you select the project location, a repository with a checkbox will apear in the results. Click the checkbox and hit "Finish".
-**1.7.6.** Continue through the wizard with default settings.
-**1.7.7.** You will now see the project in your Ecplise workspace.
-**1.7.8.** Right click the project, then select "Maven" > "Update Project" > "OK".
+**1.7.3.** Select "Existing local repository".  
+**1.7.4.** Click "Add..." and browse for the location where you cloned the project to your machine.  
+**1.7.5.** After you select the project location, a repository with a checkbox will apear in the results. Click the checkbox and hit "Finish".  
+**1.7.6.** Continue through the wizard with default settings.  
+**1.7.7.** You will now see the project in your Ecplise workspace.  
+**1.7.8.** Right click the project, then select "Maven" > "Update Project" > "OK".  
 
 ## 2. Update your Fork’s Master  
 This is an important step because if any team members have submitted pull requests to the team repository, you’ll want to have their changes on your machine before you start developing.  
