@@ -38,7 +38,7 @@ This is an important step because if any team members have submitted pull reques
 > git merge upstream/master  
 
 ## 3. Create Branch for Development.  
-This step is also very important because you **NEVER** want to develop on the master branch. Avoid doing this at **ALL COSTS**. Any development on the master branch can cause confusion and could also cause this workflow to break.  
+This step is also very important because you **NEVER** want to develop on the master branch. Avoid doing this at **ALL COSTS**. Any development on the master branch can cause confusion and could also cause this workflow to break. See **forgot to branch** in the tip section below if you find yourself accidentally working on the master branch.  
 
 **3.1.** Checkout to your master branch.  
 > git checkout master  
@@ -96,3 +96,14 @@ This is where you will send your code to the team repository for merging, ultima
 
 ## 7. Rinse and Repeat  
 Now that you've submitted your pull request, Jackson will merge your code into our project. Return to **step 2** and start working on something new.  
+
+
+# Development Tips
+Miscellaneous things that could be helpful while using the GitHub workflow. 
+
+## Forgot to branch? 
+You've realized you have been accidentally developing on your master branch. No problem. Let's get this fixed to get you back on track.  
+
+If you haven't committed any changes to master, see [this answer](https://stackoverflow.com/a/22082669) to bring your current changes to the correct feature branch.  
+
+If you have committed one or more changes to master, see [this answer](https://stackoverflow.com/a/36463546) to reset your master branch and move your commits to the correct feature branch.  
