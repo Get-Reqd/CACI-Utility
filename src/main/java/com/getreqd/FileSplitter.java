@@ -27,6 +27,9 @@ public class FileSplitter {
 		System.out.println("Splitting the file...");
 		
 		try {
+			
+			// Calculate the percentage based partition size
+			int partitionSize = (int) Math.floor((size*inputFile.length())/100);
 
 			// Read in the input file
 			InputStream inputStream = new BufferedInputStream(new FileInputStream(inputFile));
@@ -44,13 +47,13 @@ public class FileSplitter {
 				// Modify the output path (defined above) to have a .caci extension and a unique number
 				File outputFile = new File(outputFilePath + ".caci" + count++);
 				
-				System.out.println("Split into file: " + count + " to " + outputFile);
+				System.out.println("Split into file: " + (count-1) + " to " + outputFile);
 				
 				// Create the output stream object using the newly modified output path.
 				OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(outputFile));
 				
 				// Write "split" files of the specified size until there is no data left to write.
-				while (inputFileData != -1 && splitSize < size) {
+				while (inputFileData != -1 && splitSize < partitionSize) {
 					outputStream.write(inputFileData);
 					splitSize++;
 					inputFileData = inputStream.read();
@@ -98,7 +101,7 @@ public class FileSplitter {
 			while (true) {
 				
 				// Create expected path for a .caci file
-				File splitFile = new File(outputFileName + ".caci" + count++);
+				File splitFile = new File(inputFile.getAbsolutePath().substring(0, inputFile.getAbsolutePath().lastIndexOf('.')) + ".caci" + count++);
 				
 				// Detect if the expected path exists
 				if (splitFile.exists()) {

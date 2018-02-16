@@ -11,8 +11,6 @@ import java.nio.file.Path;
 import javax.swing.filechooser.FileSystemView;
 
 public class Create {
-	public Create() {
-	};
 
 	/*
 	 * 
