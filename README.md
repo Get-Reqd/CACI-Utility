@@ -61,7 +61,7 @@ git checkout master
 
 **3.2.** Create a new branch for you to make your changes on. Title your branch to something meaningful. For example, if you are updating the Split class to include checksums, a good name would be **split-checksum**.  
 ```bash
-git checkout -b “**your-meaningful-branch-name**”  
+git checkout -b “your-meaningful-branch-name”  
 ```
 
 ## 4. Begin Development  
@@ -108,7 +108,7 @@ git merge upstream/master
 
 **5.4.1.** Move to your feature branch.  
 ```bash
-git checkout **your-meaningful-branch-name**  
+git checkout your-meaningful-branch-name  
 ```
 
 **5.4.2.** Perform a rebase. This will bring the new changes into your code.  
