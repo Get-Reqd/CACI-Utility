@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Get-Reqd/CACI-Utility.svg?branch=master)](https://travis-ci.org/Get-Reqd/CACI-Utility)
+
 # Get-Reqd GitHub Workflow  
 I highly recommend that you follow this workflow very closely until you feel completely comfortable working without it. This way you don't accidentally skip a step and mess something up in the process.  
 
