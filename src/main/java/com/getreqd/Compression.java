@@ -5,16 +5,6 @@ import java.io.IOException;
 //Can be run along all Operating Systems with this input
 public class Compression {
 
-	public static void main(String[] args) throws IOException, InterruptedException {
-	
-		compress("IntroToMathCrypto.zip","/Users/SpencerBarnes/Desktop/Cryptography/IntroToMathCrypto.pdf");
-		//Placed into working directory
-		//ISO has lesser compression, depending on if ISO has already been compressed...
-		decompress("IntroToMathCrypto.zip","/Users/SpencerBarnes/Desktop/CompressedDecompressed/");
-		//Decompressed into a replicate folder of home directory in working directory...
-		decompress("IntroToMathCrypto.zip");
-		
-	}
 	/**
 	 * No output directory chosen, therefore placed into the working directory.
 	 * @param file - File that is being compressed
