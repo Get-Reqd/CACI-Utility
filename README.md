@@ -19,6 +19,8 @@ cd ~/your/desired/directory
 git clone COPIED_LINK  
 ```
 
+*Note: When you clone the repository to your machine, you may not be in the correct directoy. Be sure to CD into the project directoy before you continue.*
+
 **1.6.** Connect your fork to the team repository. Currently, the repository you have cloned to your machine is independent of our team's repository. By connecting your fork to the team repository, you will be able to get code updates from the team in the future.  
 ```bash
 git remote add upstream https://github.com/Get-Reqd/CACI-Utility.git  
