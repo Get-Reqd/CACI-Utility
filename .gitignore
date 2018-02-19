@@ -29,6 +29,7 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+*.md.html
 
 
 # === Maven ===
