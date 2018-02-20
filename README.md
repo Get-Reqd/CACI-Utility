@@ -35,8 +35,6 @@ git remote add upstream https://github.com/Get-Reqd/CACI-Utility.git
 **1.7.7.** You will now see the project in your Ecplise workspace.  
 **1.7.8.** Right click the newly imported project, then select "Maven" > "Update Project" > "OK".  
 
-*Note: When you open Eclipse in the future, you may have to repeat this step again.*  
-
 ## 2. Update your Fork’s Master  
 This is an important step because if any team members have submitted new code to the team repository, you’ll want to have their changes on your machine before you start developing.  
 
