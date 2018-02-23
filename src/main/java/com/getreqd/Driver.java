@@ -67,10 +67,10 @@ public class Driver extends JFrame {
 		JButton buttonExit = new JButton("Exit");
 		
 		// Create slider to make variable splitting sizes
-		JSlider partitionSize = new JSlider(0, 10);
-		//remove the border if it's not worth it and the space is better used for ticks
-		partitionSize.setBorder(BorderFactory.createTitledBorder("Partition size (1% to 10%)"));
+		JSlider partitionSize = new JSlider(1, 5);
 		
+		// Remove the border if it's not worth it and the space is better used for ticks
+		partitionSize.setBorder(BorderFactory.createTitledBorder("Partition size (1% to 10%)"));
 		partitionSize.setMajorTickSpacing(1);
 		partitionSize.setPaintTicks(true);
 		partitionSize.setPaintLabels(true);
@@ -112,7 +112,7 @@ public class Driver extends JFrame {
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 
 					// Update the text box in the user interface
-					outputDirectoryField.setText(fileChooser.getCurrentDirectory().toString());
+					outputDirectoryField.setText(fileChooser.getSelectedFile().toString());
 
 				}
 			}
@@ -144,9 +144,7 @@ public class Driver extends JFrame {
 					String outputPath = outputDirectoryField.getText();
 
 					// Call create class
-					Create cr = new Create();
-					cr.dumpMedia(operatingSystem, inputFile, outputPath); // Pass inputFile as File and outputPath as
-																			// String
+					Create.dumpMedia(operatingSystem, inputFile, outputPath); // Pass inputFile as File and outputPath as String
 
 					// Clear UI text fields on complete
 					clearTextFields(inputFileField, outputDirectoryField);

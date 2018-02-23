@@ -132,7 +132,7 @@ git checkout your-meaningful-branch-name
 git rebase master  
 ```
 
-**5.4.3.** Since you brought in new changes into your code, you want to go ahead and test that everything is still working properly. If you need to make more changes because of the update, return to **step 4**. If not, continue. 
+**5.4.3.** Since you brought in new changes into your code, you want to go ahead and test that everything is still working properly. If you need to make more changes because of the update, return to **step 4**. If not, continue.  
 **5.4.4.** If everything is working properly and you are ready to submit your changes, push your changes to GitHub.  
 ```bash
 git push --set-upstream origin **your-meaningful-branch-name**  

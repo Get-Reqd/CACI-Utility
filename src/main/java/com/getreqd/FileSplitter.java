@@ -1,5 +1,7 @@
 package com.getreqd;
 
+import com.getreqd.FileSplitter;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -24,12 +26,18 @@ public class FileSplitter {
 		// Create output path from input path (e.g. ~/input/example.iso to ~/output/example.iso)
 		String outputFilePath = Paths.get(outputPath, inputFile.getName()).toString();
 		
-		System.out.println("Splitting the file...");
+		System.out.println("[NOTICE] File Split Initiated");
+		System.out.println("[LOG] Input File......................" + inputFile.getName());
+		System.out.println("[LOG] Input File Size................." + inputFile.length());
+		System.out.println("[LOG] Expected Partition Size........." + (int) Math.floor((inputFile.length()*size)/10));
+		System.out.println("[LOG] Expected Number of Partitions..." + (int) Math.ceil(((double) inputFile.length()/(int) Math.floor((inputFile.length()*size)/10))));
 		
 		try {
 			
 			// Calculate the percentage based partition size
-			int partitionSize = (int) Math.floor((size*inputFile.length())/100);
+			int partitionSize = (int) Math.floor((inputFile.length()*size)/10);
+			
+			System.out.println("[LOG] Partition Size.................." + partitionSize);
 
 			// Read in the input file
 			InputStream inputStream = new BufferedInputStream(new FileInputStream(inputFile));
@@ -47,8 +55,6 @@ public class FileSplitter {
 				// Modify the output path (defined above) to have a .caci extension and a unique number
 				File outputFile = new File(outputFilePath + ".caci" + count++);
 				
-				System.out.println("Split into file: " + (count-1) + " to " + outputFile);
-				
 				// Create the output stream object using the newly modified output path.
 				OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(outputFile));
 				
@@ -61,9 +67,13 @@ public class FileSplitter {
 
 				outputStream.close();
 				
+				System.out.println("[LOG] File Created...................." + outputFile.getName());
+				System.out.println("[LOG] File Size......................." + outputFile.length());
+				
 			}
 			
-			System.out.println("File Completed Splitting!");
+			System.out.println("[LOG] Total Partitions Created........" + (count-1));
+			System.out.println("[NOTICE] File Split Complete");
 			
 			inputStream.close();
 			
@@ -85,7 +95,9 @@ public class FileSplitter {
 	public static void join(File inputFile, String outputPath) {
 
 		try {
-
+			
+			System.out.println("[NOTICE] File Join Initiated");
+			
 			// Create outputFile and get output file name. If output file does not already exist, create an empty file.
 			String outputFileName = inputFile.getName().substring(0, inputFile.getName().lastIndexOf('.'));
 			File outputFile = new File(Paths.get(outputPath, outputFileName).toString());
@@ -106,13 +118,12 @@ public class FileSplitter {
 				// Detect if the expected path exists
 				if (splitFile.exists()) {
 					
-					System.out.println("File name is : " + splitFile.getName());
+					System.out.println("[LOG] Input File......................" + splitFile.getName());
+					System.out.println("[LOG] Input File Size................." + splitFile.length());
 					
 					// Read in the .caci file
 					InputStream inputStream = new BufferedInputStream(new FileInputStream(splitFile));
 					int data = inputStream.read();
-					
-					System.out.println("Size of the file is: " + splitFile.length());
 					
 					// Loop through every byte in the .caci file
 					while (data != -1) {
@@ -129,7 +140,6 @@ public class FileSplitter {
 					
 				} else {
 					
-					System.out.println("File has been joined!");
 					break;
 					
 				}
@@ -137,6 +147,10 @@ public class FileSplitter {
 			}
 			
 			outputStream.close();
+			
+			System.out.println("[LOG] Merged File Size................" + outputFile.length());
+			System.out.println("[LOG] Total Partitions Found.........." + (count-2));
+			System.out.println("[NOTICE] File Join Completed");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
