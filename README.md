@@ -143,7 +143,7 @@ This is where you will send your code to the team repository for merging, ultima
 
 **6.1.** Go to your personal forked repository on GitHub. (See **step 1.2** to find your personal repository page)  
 **6.2.** You will notice a yellow box at the top of your repository with a green button that says "Compare & pull request". Click this button.  
-**6.3.** In the write box, leave a comment explaining all of the changes you have made. This is an open conversation explaining to the team what you have changed and worked on.  
+**6.3.** In the write box, leave a comment explaining all of the changes you have made. This is an open conversation explaining to the team what you have changed and worked on. **If your pull request closes an issue** be sure to include the issue number in your comment. For example, if my pull request closes issue #6, I would include **closes issue #6** in my comment.  
 **6.4.** Once you have left your comment, click the green button that says "Create pull request".  
 
 ## 7. Rinse and Repeat  
