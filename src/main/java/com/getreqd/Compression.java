@@ -15,16 +15,17 @@ public class Compression {
 	 */
 	public static void compress(String file) throws IOException, InterruptedException {
 		System.out.println("Zipping File: " + file + "\n to location: Working Directory");
-		String[] command = { "zip","-r",file};
+		String[] command = { "zip","-j",file};
 		Process terminal = new ProcessBuilder(command).start();
 		terminal.waitFor();
 		System.out.println("Completed Compression!");
 	}
 
 	/**
-	 * Output directory is chosen, therefore file will be compressed to specified directory.
+	 * Output directory is chosen, therefore file will be compressed to specified directory. **DO NOT USE ON ORIGINAL FILE**
+	 * Will delete the non-zipped file afterwards
 	 * 
-	 * @param zipName - Name of the newly compressed file
+	 * @param zipName - Name of the newly compressed file, including path before it
 	 * @param file - File to be compressed
 	 * @throws IOException
 	 * @throws InterruptedException
@@ -35,12 +36,21 @@ public class Compression {
 		//May want to just keep it regular zip..
 		//Example: If Mac User compresses the file as a tar.gz and sends it. 
 		//				A Windows user can retrieve the file and not be able to uncompress it.
-		
+
 		System.out.println("Zipping File: " + file + "\n to location: "+ zipName);
-		String[] command = { "zip","-r", zipName, file};
+		String[] command = { "zip", "-j",zipName, file};
 		Process terminal = new ProcessBuilder(command).start();
 		terminal.waitFor();
 		System.out.println("Completed Compression!");
+
+		//Removing the old uncompressed files
+		String[] commandRemove = {"rm",file};
+		terminal = new ProcessBuilder(commandRemove).start();
+		terminal.waitFor();
+		System.out.println("Removed old file. Replaced with compressed file.");
+
+
+
 		/**
 		switch(operatingSystem){
 			case "Mac OS X" :
@@ -62,29 +72,38 @@ public class Compression {
 				Process terminal3 = new ProcessBuilder(command3).start();
 				terminal3.waitFor();
 		}
-		**/
-		
+		 **/
+
 	}
 	/**
+	 * Output directory chosen, therefore file will be decompressed into specified directory.
 	 * 
 	 * @param file
 	 * @param destination
 	 * @throws IOException
 	 * @throws InterruptedException
 	 * 
-	 * Output directory chosen, therefore file will be decompressed into specified directory.
 	 */
+	
 	public static void decompress(String file, String destination) throws IOException, InterruptedException {
 		//unzip archive_name.zip
 		System.out.println("Unzipping File: " + file);
-		//Using -j to remove the archived directory from being replicated
+		//Using -qq to remove output given from terminal/cmd
 		//Using -d to specify a destination folder
-		String[] command = { "unzip","-j", file,"-d", destination};
+		String[] command = { "unzip","-qq", file,"-d", destination};
 		Process terminal = new ProcessBuilder(command).start();
+		
+		//terminal.waitFor();
+
+		/*//Removing the compressed files
+		String[] commandRemove = {"rm",file};
+		terminal = new ProcessBuilder(commandRemove).start();
 		terminal.waitFor();
-		System.out.println("Completed Decompression!");
+		System.out.println("Removed old file. Replaced with compressed file.");*/
+
+
 	}
-	
+
 	/**
 	 * 
 	 * @param file

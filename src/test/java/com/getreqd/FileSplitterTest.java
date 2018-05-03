@@ -19,7 +19,7 @@ public class FileSplitterTest {
 	public TemporaryFolder tempDirectory = new TemporaryFolder();
 
 	@Test
-	public void testSplit() {
+	public void testSplit() throws InterruptedException {
 		
 		try {
 			

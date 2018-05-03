@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -169,7 +170,15 @@ public class Driver extends JFrame {
 
 					// Call assemble class
 					Assemble as = new Assemble();
-					as.buildISO(inputFile, outputPath); // Pass inputFile as File and outputPath as String
+					try {
+						as.buildISO(inputFile, outputPath);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} // Pass inputFile as File and outputPath as String
 
 					// Clear UI text fields on complete
 					clearTextFields(inputFileField, outputDirectoryField);
