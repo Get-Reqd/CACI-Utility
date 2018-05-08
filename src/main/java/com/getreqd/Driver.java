@@ -1,10 +1,13 @@
 package com.getreqd;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -66,10 +69,10 @@ public class Driver extends JFrame {
 		JButton buttonBuild = new JButton("Build");
 		JButton buttonSettings = new JButton("Settings");
 		JButton buttonExit = new JButton("Exit");
-		
+
 		// Create slider to make variable splitting sizes
 		JSlider partitionSize = new JSlider(1, 5);
-		
+
 		// Remove the border if it's not worth it and the space is better used for ticks
 		partitionSize.setBorder(BorderFactory.createTitledBorder("Partition size (1% to 10%)"));
 		partitionSize.setMajorTickSpacing(1);
@@ -188,7 +191,7 @@ public class Driver extends JFrame {
 			}
 
 		});
-		
+
 		// Split button action listener
 		buttonRename.addActionListener(new ActionListener() {
 
@@ -200,10 +203,10 @@ public class Driver extends JFrame {
 					// Create variables for method call
 					File inputFile = new File(inputFileField.getText());
 					String outputPath = outputDirectoryField.getText();
-					
+
 					//get the size of the desired partion size from the slider
 					int size = partitionSize.getValue();
-				
+
 					// Call split class
 					Split.splitISO(inputFile, outputPath, Integer.toString(size)); // Pass inputFile as File and outputPath as String
 
@@ -308,4 +311,3 @@ public class Driver extends JFrame {
 	}
 
 }
-
