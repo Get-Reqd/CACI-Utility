@@ -1,13 +1,12 @@
 package com.getreqd;
 
-import org.apache.commons.io.FilenameUtils;
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
+import java.security.NoSuchAlgorithmException;
+import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -20,8 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 
+
 public class Driver extends JFrame {
 
+	
 	// Serialization default variable
 	private static final long serialVersionUID = 1L;
 
@@ -32,7 +33,6 @@ public class Driver extends JFrame {
 
 		// Initialize the user interface
 		initUI();
-
 	}
 
 	public final static void initUI() {
@@ -67,14 +67,19 @@ public class Driver extends JFrame {
 		JButton buttonCreate = new JButton("Create");
 		JButton buttonRename = new JButton("Split");
 		JButton buttonBuild = new JButton("Build");
-		JButton buttonSettings = new JButton("Settings");
+		JButton buttonHelp = new JButton("Help");
 		JButton buttonExit = new JButton("Exit");
 
 		// Create slider to make variable splitting sizes
-		JSlider partitionSize = new JSlider(1, 5);
+
+		JSlider partitionSize = new JSlider(1, 10);
+		//remove the border if it's not worth it and the space is better used for ticks
+		partitionSize.setBorder(BorderFactory.createTitledBorder("Partition size (1% to 10%)"));
+
 
 		// Remove the border if it's not worth it and the space is better used for ticks
 		partitionSize.setBorder(BorderFactory.createTitledBorder("Partition size (1% to 10%)"));
+
 		partitionSize.setMajorTickSpacing(1);
 		partitionSize.setPaintTicks(true);
 		partitionSize.setPaintLabels(true);
@@ -95,7 +100,6 @@ public class Driver extends JFrame {
 
 					// Update the text box in the user interface
 					inputFileField.setText(fileChooser.getSelectedFile().toString());
-
 				}
 			}
 		});
@@ -117,6 +121,10 @@ public class Driver extends JFrame {
 
 					// Update the text box in the user interface
 					outputDirectoryField.setText(fileChooser.getSelectedFile().toString());
+					
+					//If you click into the folder, it repeats the title. which isn't great, so we have to make sure to click select, not
+					//not go into the folder THEN click select
+//					System.out.println(fileChooser.getSelectedFile().toString());
 
 				}
 			}
@@ -132,7 +140,6 @@ public class Driver extends JFrame {
 				System.exit(0);
 
 			}
-
 		});
 
 		// Create button action listener
@@ -148,20 +155,25 @@ public class Driver extends JFrame {
 					String outputPath = outputDirectoryField.getText();
 
 					// Call create class
+					//these two lines not in Spencer's \/
+					Create cr = new Create();
+					cr.dumpMedia(operatingSystem, inputFile, outputPath); // Pass inputFile as File and outputPath as
+					// String
+
 					Create.dumpMedia(operatingSystem, inputFile, outputPath); // Pass inputFile as File and outputPath as String
+
 
 					// Clear UI text fields on complete
 					clearTextFields(inputFileField, outputDirectoryField);
 
 				}
-
 			}
-
 		});
 
 		// Build button action listener
 		buttonBuild.addActionListener(new ActionListener() {
 
+			boolean failed;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -170,29 +182,63 @@ public class Driver extends JFrame {
 					// Create variables for method call
 					File inputFile = new File(inputFileField.getText());
 					String outputPath = outputDirectoryField.getText();
-
+	
 					// Call assemble class
-					Assemble as = new Assemble();
 					try {
-						as.buildISO(inputFile, outputPath);
-					} catch (IOException e1) {
+						//the -6 is hard coded to take out the .caci# but i guess if we get rid of at least the numbers alone it works
+						String reLoad = Log.checkHashes(inputFile.getParent(), inputFileField.getText()
+								.substring(inputFileField.getText().lastIndexOf('/') + 1, 
+										inputFileField.getText().length()-6));
+//						System.out.println(reLoad); //printing the errant files to the console
+						if(reLoad.equals(""))
+						{
+							//we did not fail. do the assemble
+							failed = false;						
+						}
+
+						else
+						{
+							//we did fail. dont assemble
+							failed = true;
+
+							//display failures
+							JOptionPane.showMessageDialog(window, reLoad);
+						}
+
+
+
+					} catch (IOException | NoSuchAlgorithmException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} // Pass inputFile as File and outputPath as String
+					}
+
+					//if it didn't fail then assemble
+					if(!failed) 
+					{
+						Assemble as = new Assemble();
+						//try to do the build
+						try {
+							as.buildISO(inputFile, outputPath); // Pass inputFile as File and outputPath as String
+							JOptionPane.showMessageDialog(window, "Assemble completed");
+						}
+						
+						catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						
+						catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
 
 					// Clear UI text fields on complete
 					clearTextFields(inputFileField, outputDirectoryField);
 
 				}
-
 			}
-
 		});
 
-		// Split button action listener
+		// button action listener
 		buttonRename.addActionListener(new ActionListener() {
 
 			@Override
@@ -210,13 +256,45 @@ public class Driver extends JFrame {
 					// Call split class
 					Split.splitISO(inputFile, outputPath, Integer.toString(size)); // Pass inputFile as File and outputPath as String
 
+					//try making the hash file to the output folder
+					try {
+						//-6 hard coded to get rid of .caci##
+						if(System.getProperty("os.name").toLowerCase().contains("Windows".toLowerCase())) {
+							Log.makeHashes(outputPath, inputFileField.getText().substring(inputFileField.getText().lastIndexOf('\\') + 1,inputFileField.getText().length()));
+						}
+						else {
+							Log.makeHashes(outputPath, inputFileField.getText().substring(inputFileField.getText().lastIndexOf('/') + 1,inputFileField.getText().length()));
+
+						}
+						
+//								.substring(inputFileField.getText().lastIndexOf('/') + 1, 
+//										inputFileField.getText().length() - 6));
+					} catch (NoSuchAlgorithmException | IOException e1) {
+						e1.printStackTrace();
+					}
+
 					// Clear UI text fields on complete
 					clearTextFields(inputFileField, outputDirectoryField);
 
 				}
-
 			}
+		});
+		
+		// Help button action listener
+		buttonHelp.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String helpMessage = "1. In the Input field, choose the file you wish to split/build.\n"
+						+ " --If you want to Create a .iso file, after selecting an Input file, click Create.\n"
+						+ " --If you want to Build a .caci file, choose one .caci file with the name of the file you want to build, then click Build.\n"
+						+ "2. In the Output field, choose the destination of the split/built files. \n"
+						+ " --Splitting the file will result in multiple .caci files in the specified directory\n"
+						+ " --Building the files will result in a single file in the specified directory\n"
+						+ "3. In the Partition field, choose the partition size for each file if splitting.\n"
+						+ "4. Either choose Split or Build if you want to split the files or build already-split files.";
+				JOptionPane.showMessageDialog(null, helpMessage, "Help", JOptionPane.INFORMATION_MESSAGE);
+			}
 		});
 
 		// Add inputPanel components to inputPanel
@@ -234,7 +312,7 @@ public class Driver extends JFrame {
 		buttonPanel.add(partitionSize);
 		buttonPanel.add(buttonRename);
 		buttonPanel.add(buttonBuild);
-		buttonPanel.add(buttonSettings);
+		buttonPanel.add(buttonHelp);
 		buttonPanel.add(buttonExit);
 
 		// Create a panel to hold I/O panels and add I/O panels
@@ -252,7 +330,6 @@ public class Driver extends JFrame {
 		window.pack();
 		window.setLocationByPlatform(true);
 		window.setVisible(true);
-
 	}
 
 	public static boolean validateInput(JFrame window, JTextField inputFileField, JTextField outputDirectoryField) {
@@ -266,7 +343,6 @@ public class Driver extends JFrame {
 
 			showError(window, "Either input or output has no value.");
 			return false;
-
 		}
 
 		// Create temporary I/O file objects
@@ -279,7 +355,6 @@ public class Driver extends JFrame {
 			// On error, write to console.
 			showError(window, "Unable to identify input file: " + "\n'" + input + "'");
 			return false;
-
 		}
 
 		// Check to make sure the output directory exists.
@@ -288,26 +363,21 @@ public class Driver extends JFrame {
 			// On error, write to console.
 			showError(window, "Unable to identify output directory: " + "\n'" + output + "'");
 			return false;
-
 		}
 
 		// If no problems are found, return true.
 		return true;
-
 	}
 
 	public static void clearTextFields(JTextField inputFileField, JTextField outputDirectoryField) {
 
 		inputFileField.setText("");
 		outputDirectoryField.setText("");
-
 	}
 
 	public static void showError(JFrame window, String message) {
 
 		System.err.println(message);
 		JOptionPane.showMessageDialog(window, message);
-
 	}
-
 }
