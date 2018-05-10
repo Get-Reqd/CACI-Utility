@@ -67,7 +67,7 @@ public class Driver1 extends JFrame {
 		JButton buttonCreate = new JButton("Create");
 		JButton buttonRename = new JButton("Split");
 		JButton buttonBuild = new JButton("Build");
-		//		JButton buttonSettings = new JButton("Settings");  Getting rid of settings button
+		JButton buttonHelp = new JButton("Help");
 		JButton buttonExit = new JButton("Exit");
 
 		// Create slider to make variable splitting sizes
@@ -279,6 +279,23 @@ public class Driver1 extends JFrame {
 				}
 			}
 		});
+		
+		// Help button action listener
+		buttonHelp.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String helpMessage = "1. In the Input field, choose the file you wish to split/build.\n"
+						+ " --If you want to Create a .iso file, after selecting an Input file, click Create.\n"
+						+ " --If you want to Build a .caci file, choose one .caci file with the name of the file you want to build, then click Build.\n"
+						+ "2. In the Output field, choose the destination of the split/built files. \n"
+						+ " --Splitting the file will result in multiple .caci files in the specified directory\n"
+						+ " --Building the files will result in a single file in the specified directory\n"
+						+ "3. In the Partition field, choose the partition size for each file if splitting.\n"
+						+ "4. Either choose Split or Build if you want to split the files or build already-split files.";
+				JOptionPane.showMessageDialog(null, helpMessage, "Help", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 
 		// Add inputPanel components to inputPanel
 		inputPanel.add(inputFileLabel);
@@ -295,7 +312,7 @@ public class Driver1 extends JFrame {
 		buttonPanel.add(partitionSize);
 		buttonPanel.add(buttonRename);
 		buttonPanel.add(buttonBuild);
-//		buttonPanel.add(buttonSettings);		removing setting button
+		buttonPanel.add(buttonHelp);
 		buttonPanel.add(buttonExit);
 
 		// Create a panel to hold I/O panels and add I/O panels
