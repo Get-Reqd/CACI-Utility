@@ -259,9 +259,16 @@ public class Driver1 extends JFrame {
 					//try making the hash file to the output folder
 					try {
 						//-6 hard coded to get rid of .caci##
-						Log.makeHashes(outputPath, inputFileField.getText()
-								.substring(inputFileField.getText().lastIndexOf('/') + 1, 
-										inputFileField.getText().length() - 6));
+						if(System.getProperty("os.name").toLowerCase().contains("Windows".toLowerCase())) {
+							Log.makeHashes(outputPath, inputFileField.getText().substring(inputFileField.getText().lastIndexOf('\\') + 1,inputFileField.getText().length()));
+						}
+						else {
+							Log.makeHashes(outputPath, inputFileField.getText().substring(inputFileField.getText().lastIndexOf('/') + 1,inputFileField.getText().length()));
+
+						}
+						
+//								.substring(inputFileField.getText().lastIndexOf('/') + 1, 
+//										inputFileField.getText().length() - 6));
 					} catch (NoSuchAlgorithmException | IOException e1) {
 						e1.printStackTrace();
 					}
